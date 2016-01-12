@@ -1,0 +1,194 @@
+{
+	"nodes": [
+		{
+			"node_id": 0,
+			"name": "Silver Fern (Red, White and Blue)",
+			"round": 1,
+			"vote_count": 574364
+		}, {
+			"node_id": 1,
+			"name": "Silver Fern (Black, White and Blue)",
+			"round": 1,
+			"vote_count": 552827
+		}, {
+			"node_id": 2,
+			"name": "Red Peak",
+			"round": 1,
+			"vote_count": 119672
+		}, {
+			"node_id": 3,
+			"name": "Silver Fern (Black and White)",
+			"round": 1,
+			"vote_count": 77802
+		}, {
+			"node_id": 4,
+			"name": "Koru",
+			"round": 1,
+			"vote_count": 51879
+		}, {
+			"node_id": 5,
+			"name": "Not counted",
+			"round": 1,
+			"vote_count": 150498
+		}, {
+			"node_id": 6,
+			"name": "Silver Fern (Red, White and Blue)",
+			"round": 2,
+			"vote_count": 578506
+		}, {
+			"node_id": 7,
+			"name": "Silver Fern (Black, White and Blue)",
+			"round": 2,
+			"vote_count": 557812
+		}, {
+			"node_id": 8,
+			"name": "Red Peak",
+			"round": 2,
+			"vote_count": 131865
+		}, {
+			"node_id": 9,
+			"name": "Silver Fern (Black and White)",
+			"round": 2,
+			"vote_count": 97164
+		}, {
+			"node_id": 10,
+			"name": "Not counted",
+			"round": 2,
+			"vote_count": 161695
+		}, {
+			"node_id": 11,
+			"name": "Silver Fern (Black, White and Blue)",
+			"round": 3,
+			"vote_count": 605654
+		}, {
+			"node_id": 12,
+			"name": "Silver Fern (Red, White and Blue)",
+			"round": 3,
+			"vote_count": 600811
+		}, {
+			"node_id": 13,
+			"name": "Red Peak",
+			"round": 3,
+			"vote_count": 146358
+		}, {
+			"node_id": 14,
+			"name": "Not counted",
+			"round": 3,
+			"vote_count": 174219
+		}, {
+			"node_id": 15,
+			"name": "Silver Fern (Black, White and Blue)",
+			"round": 4,
+			"vote_count": 662160
+		}, {
+			"node_id": 16,
+			"name": "Silver Fern (Red, White and Blue)",
+			"round": 4,
+			"vote_count": 648295
+		}, {
+			"node_id": 17,
+			"name": "Not counted",
+			"round": 4,
+			"vote_count": 216587
+		}
+	],
+	"links": [
+		{
+			"source": 0,
+			"target": 6,
+			"value": 574364
+		}, {
+			"source": 1,
+			"target": 7,
+			"value": 552827
+		}, {
+			"source": 2,
+			"target": 8,
+			"value": 119672
+		}, {
+			"source": 3,
+			"target": 9,
+			"value": 77802
+		}, {
+			"source": 4,
+			"target": 10,
+			"value": 11197
+		}, {
+			"source": 4,
+			"target": 7,
+			"value": 4985
+		}, {
+			"source": 4,
+			"target": 8,
+			"value": 12193
+		}, {
+			"source": 4,
+			"target": 9,
+			"value": 19362
+		}, {
+			"source": 4,
+			"target": 6,
+			"value": 4142
+		}, {
+			"source": 5,
+			"target": 10,
+			"value": 150498
+		}, {
+			"source": 6,
+			"target": 12,
+			"value": 578506
+		}, {
+			"source": 7,
+			"target": 11,
+			"value": 557812
+		}, {
+			"source": 8,
+			"target": 13,
+			"value": 131865
+		}, {
+			"source": 9,
+			"target": 14,
+			"value": 12524
+		}, {
+			"source": 9,
+			"target": 11,
+			"value": 47842
+		}, {
+			"source": 9,
+			"target": 13,
+			"value": 14493
+		}, {
+			"source": 9,
+			"target": 12,
+			"value": 22305
+		}, {
+			"source": 10,
+			"target": 14,
+			"value": 161695
+		}, {
+			"source": 11,
+			"target": 15,
+			"value": 605654
+		}, {
+			"source": 12,
+			"target": 16,
+			"value": 600811
+		}, {
+			"source": 13,
+			"target": 15,
+			"value": 56506
+		}, {
+			"source": 13,
+			"target": 16,
+			"value": 47484
+		}, {
+			"source": 13,
+			"target": 17,
+			"value": 42368
+		}, {
+			"source": 14,
+			"target": 17,
+			"value": 174219
+		}
+	]
+}

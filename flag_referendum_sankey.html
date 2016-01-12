@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>NZ Flag Referendum Results</title>
+
+    <link rel="stylesheet" href="bootstrap.css">
+
+    <style>
+      
+      body {
+        padding-top: 25px;
+        background-color: #f3f4ef;
+      }
+
+      .node rect {
+        cursor: move;
+        fill-opacity: .9;
+      }
+
+      .node text {
+        pointer-events: none;
+        text-shadow: 0 1px 0 #fff;
+      }
+
+      .link {
+        fill: none;
+        stroke: #000;
+        stroke-opacity: .2;
+      }
+
+      .link:hover {
+        stroke-opacity: .5;
+      }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+      <h1 align="center">First Referendum on the New Zealand Flag</h1>
+      <p class="lead" align="center">By <a href="https://twitter.com/Jayniehaka">@jayniehaka</a></p>
+      <p align="center">Source: <a href="http://www.electionresults.govt.nz/2015_flag_referendum1/results-by-count-report.html">Electoral Commission</a></p>
+
+      <div class="container" id="area1" align="center"></div>
+
+      <div class="container" align="justify">
+        <p>Each column represents a vote count. Flags are arranged vertically according to the number of votes at each count. Hover over the rectangles and the links to see how many votes were counted and transferred.</p>
+
+        <p>"Not counted" includes all informal, invalid and non-transferable votes. These have been lumped together for simplicity, but you can check out the <a href="http://www.electionresults.govt.nz/2015_flag_referendum1/results-by-count-report.html">source data</a> for definitions and a full breakdown.</p>
+
+        <p>This diagram was made using the <a href="https://github.com/d3/d3-plugins/tree/master/sankey">sankey.js</a> plugin for D3, and the awesome tutorials by <a href="https://twitter.com/d3noob">@d3noob</a>.</p>
+      </div>
+    </div>
+
+<script src="d3.js"></script>
+<script src="sankey.js"></script>
+<script>
+
+var width = 1000,
+    height = 600;
+
+var formatNumber = d3.format(",.0f"),
+    format = function(d) { return formatNumber(d) + " votes"; },
+    color = d3.scale.category10();
+
+// append the svg canvas to the page
+var svg = d3.select("#area1").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// set the sankey diagram properties
+var sankey = d3.sankey()
+    .nodeWidth(50)
+    .nodePadding(40)
+    .size([width, height]);
+
+var path = sankey.link();
+
+// load the data
+d3.json("flag_results.json", function(error, graph) {
+
+  sankey
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .layout(50);
+
+// add in the links
+  var link = svg.append("g").selectAll(".link")
+    .data(graph.links)
+    .enter().append("path")
+    .attr("class", "link")
+    .attr("d", path)
+    .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+    .sort(function(a, b) { return b.dy - a.dy; });
+
+// add the link titles
+  link.append("title")
+    .text(function(d) {
+      return format(d.value); });
+
+// add in the nodes
+  var node = svg.append("g").selectAll(".node")
+    .data(graph.nodes)
+    .enter().append("g")
+    .attr("class", "node")
+    .attr("transform", function(d) { 
+	   return "translate(" + d.x + "," + d.y + ")"; })
+    .call(d3.behavior.drag()
+    .origin(function(d) { return d; })
+    .on("dragstart", function() { 
+	  this.parentNode.appendChild(this); })
+    .on("drag", dragmove));
+
+// add the rectangles for the nodes
+  node.append("rect")
+    .attr("height", function(d) {
+      return d.dy; })
+    .attr("width", sankey.nodeWidth())
+    .style("fill", function(d) { 
+      return d.color = color(d.name); })
+    .style("stroke", function(d) { 
+	   return d3.rgb(d.color).darker(2); })
+    .append("title")
+    .text(function(d) { 
+	   return format(d.vote_count); });
+
+// add in the title for the nodes on the left
+  node.append("text")
+    .filter(function(d) { return d.x < width / 2; })
+    .attr("y", function(d) { return d.dy / 2; })
+    .attr("dy", ".35em")
+    .attr("text-anchor", "start")
+    .attr("transform", null)
+    .text(function(d) { return d.name; })
+    .call(wrap, 125, 6 + sankey.nodeWidth());
+
+// add in the title for the nodes on the right
+  node.append("text")
+    .filter(function(d) { return d.x > width / 2; })
+    .attr("y", function(d) { return d.dy / 2; })
+    .attr("dy", ".35em")
+    .attr("text-anchor", "end")
+    .attr("transform", null)
+    .text(function(d) { return d.name; })
+    .call(wrap, 125, -6);
+
+// the function for moving the nodes
+  function dragmove(d) {
+    d3.select(this).attr("transform", 
+        "translate(" + d.x + "," + (
+                d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
+            ) + ")");
+    sankey.relayout();
+    link.attr("d", path);
+  }
+
+function wrap(text, width, horizontal) {
+  text.each(function() {
+    var text = d3.select(this),
+      words = text.text().split(/\s+/).reverse(),
+      word,
+      line = [],
+      lineNumber = 0,
+      lineHeight = 1.1, // ems
+      y = text.attr("y"),
+      dy = parseFloat(text.attr("dy")),
+      tspan = text.text(null).append("tspan").attr("x", horizontal).attr("y", y).attr("dy", dy + "em");
+
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", horizontal).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+      }
+    }
+  });
+}
+
+});
+
+</script>
+
+</body>
+</html>
