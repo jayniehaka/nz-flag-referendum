@@ -6,7 +6,8 @@
 
     <title>NZ Flag Referendum Results</title>
 
-    <link rel="stylesheet" href="bootstrap.css">
+<!--     <link rel="stylesheet" href="bootstrap.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <style>
       
@@ -22,7 +23,6 @@
 
       .node text {
         pointer-events: none;
-        text-shadow: 0 1px 0 #fff;
       }
 
       .link {
@@ -34,6 +34,24 @@
       .link:hover {
         stroke-opacity: .5;
       }
+
+      .container {
+        padding: 25px;
+      }
+
+/*      .tooltip {
+        position: absolute;
+        z-index: 10;
+        width: 60px;
+        height: 28px;
+        padding: 2px;
+        font: 12px "sans-serif";
+        border: 5px solid red;
+        background-color: blue;
+        visibility: hidden;
+      }*/
+
+
     </style>
 
 </head>
@@ -45,7 +63,7 @@
       <p class="lead" align="center">By <a href="https://twitter.com/Jayniehaka">@jayniehaka</a></p>
       <p align="center">Source: <a href="http://www.electionresults.govt.nz/2015_flag_referendum1/results-by-count-report.html">Electoral Commission</a></p>
 
-      <div class="container" id="area1" align="center"></div>
+      <div class="container" id="area1" align="center" ></div>
 
       <div class="container" align="justify">
         <p>Each column represents a vote count. Flags are arranged vertically according to the number of votes at each count. Hover over the rectangles and the links to see how many votes were counted and transferred.</p>
@@ -56,16 +74,18 @@
       </div>
     </div>
 
-<script src="d3.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="sankey.js"></script>
 <script>
 
 var width = 1000,
     height = 600;
 
+var imgMax = { w: 50, h: 25};
+
 var formatNumber = d3.format(",.0f"),
-    format = function(d) { return formatNumber(d) + " votes"; },
     color = d3.scale.category10();
+    // in v.4 use d3.scaleOrdinal(d3.schemeCategory10)
 
 // append the svg canvas to the page
 var svg = d3.select("#area1").append("svg")
@@ -80,13 +100,23 @@ var sankey = d3.sankey()
 
 var path = sankey.link();
 
+var tooltip = d3.select("body")
+    .append("div")
+    // .attr("class", "tooltip");
+    .style("text-align", "center")
+    .style("position", "absolute")
+    .style("z-index", "10")               
+    .style("padding","10px")             
+    .style("background", "lightblue")
+    .style("visibility", "hidden");
+
 // load the data
 d3.json("flag_results.json", function(error, graph) {
 
   sankey
     .nodes(graph.nodes)
     .links(graph.links)
-    .layout(50);
+    .layout(20);
 
 // add in the links
   var link = svg.append("g").selectAll(".link")
@@ -97,10 +127,14 @@ d3.json("flag_results.json", function(error, graph) {
     .style("stroke-width", function(d) { return Math.max(1, d.dy); })
     .sort(function(a, b) { return b.dy - a.dy; });
 
-// add the link titles
-  link.append("title")
-    .text(function(d) {
-      return format(d.value); });
+// add tooltips to the links
+    link.on("mouseover", function(d){
+        tooltip.html(formatNumber(d.value) + " votes");
+        tooltip.style("visibility", "visible");
+    })
+    .on("mousemove", function(){return tooltip.style("top", (event.pageY-                   
+                  10)+"px").style("left",(event.pageX+10)+"px");})
+    .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
 // add in the nodes
   var node = svg.append("g").selectAll(".node")
@@ -115,18 +149,26 @@ d3.json("flag_results.json", function(error, graph) {
 	  this.parentNode.appendChild(this); })
     .on("drag", dragmove));
 
-// add the rectangles for the nodes
+// add the rectangles and tooltips to the nodes
   node.append("rect")
     .attr("height", function(d) {
       return d.dy; })
     .attr("width", sankey.nodeWidth())
     .style("fill", function(d) { 
       return d.color = color(d.name); })
-    .style("stroke", function(d) { 
-	   return d3.rgb(d.color).darker(2); })
-    .append("title")
-    .text(function(d) { 
-	   return format(d.vote_count); });
+    .on("mouseover", function(d){
+        tooltip.html(formatNumber(d.vote_count) + " votes</br>");
+        if (d.name !== "Not counted") {
+          tooltip.append("img")
+            .attr("src", "img/"+ d.image)
+            .attr("width", d.image_wide / 10)                  
+            .attr("height", d.image_high / 10)
+        }
+        tooltip.style("visibility", "visible");
+    })
+    .on("mousemove", function(){return tooltip.style("top", (event.pageY-                   
+                  10)+"px").style("left",(event.pageX+10)+"px");})
+    .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
 // add in the title for the nodes on the left
   node.append("text")
@@ -158,6 +200,7 @@ d3.json("flag_results.json", function(error, graph) {
     link.attr("d", path);
   }
 
+// function for wrapping the text
 function wrap(text, width, horizontal) {
   text.each(function() {
     var text = d3.select(this),

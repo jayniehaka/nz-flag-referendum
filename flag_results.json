@@ -4,27 +4,42 @@
 			"node_id": 0,
 			"name": "Silver Fern (Red, White and Blue)",
 			"round": 1,
-			"vote_count": 574364
+			"vote_count": 574364,
+			"image": "red_lockwood.png",
+			"image_wide" : 800,
+			"image_high" : 400
 		}, {
 			"node_id": 1,
 			"name": "Silver Fern (Black, White and Blue)",
 			"round": 1,
-			"vote_count": 552827
+			"vote_count": 552827,
+			"image": "black_lockwood.png",
+			"image_wide" : 800,
+			"image_high" : 399
 		}, {
 			"node_id": 2,
 			"name": "Red Peak",
 			"round": 1,
-			"vote_count": 119672
+			"vote_count": 119672,
+			"image": "red_peak.png",
+			"image_wide" : 800,
+			"image_high" : 400
 		}, {
 			"node_id": 3,
 			"name": "Silver Fern (Black and White)",
 			"round": 1,
-			"vote_count": 77802
+			"vote_count": 77802,
+			"image": "bw_fern.png",
+			"image_wide" : 800,
+			"image_high" : 540
 		}, {
 			"node_id": 4,
 			"name": "Koru",
 			"round": 1,
-			"vote_count": 51879
+			"vote_count": 51879,
+			"image": "koru.png",
+			"image_wide" : 800,
+			"image_high" : 400
 		}, {
 			"node_id": 5,
 			"name": "Not counted",
@@ -34,22 +49,34 @@
 			"node_id": 6,
 			"name": "Silver Fern (Red, White and Blue)",
 			"round": 2,
-			"vote_count": 578506
+			"vote_count": 578506,
+			"image": "red_lockwood.png",
+			"image_wide" : 800,
+			"image_high" : 400
 		}, {
 			"node_id": 7,
 			"name": "Silver Fern (Black, White and Blue)",
 			"round": 2,
-			"vote_count": 557812
+			"vote_count": 557812,
+			"image": "black_lockwood.png",
+			"image_wide" : 800,
+			"image_high" : 399
 		}, {
 			"node_id": 8,
 			"name": "Red Peak",
 			"round": 2,
-			"vote_count": 131865
+			"vote_count": 131865,
+			"image": "red_peak.png",
+			"image_wide" : 800,
+			"image_high" : 400
 		}, {
 			"node_id": 9,
 			"name": "Silver Fern (Black and White)",
 			"round": 2,
-			"vote_count": 97164
+			"vote_count": 97164,
+			"image": "bw_fern.png",
+			"image_wide" : 800,
+			"image_high" : 540
 		}, {
 			"node_id": 10,
 			"name": "Not counted",
@@ -59,17 +86,26 @@
 			"node_id": 11,
 			"name": "Silver Fern (Black, White and Blue)",
 			"round": 3,
-			"vote_count": 605654
+			"vote_count": 605654,
+			"image": "black_lockwood.png",
+			"image_wide" : 800,
+			"image_high" : 399
 		}, {
 			"node_id": 12,
 			"name": "Silver Fern (Red, White and Blue)",
 			"round": 3,
-			"vote_count": 600811
+			"vote_count": 600811,
+			"image": "red_lockwood.png",
+			"image_wide" : 800,
+			"image_high" : 400
 		}, {
 			"node_id": 13,
 			"name": "Red Peak",
 			"round": 3,
-			"vote_count": 146358
+			"vote_count": 146358,
+			"image": "red_peak.png",
+			"image_wide" : 800,
+			"image_high" : 400
 		}, {
 			"node_id": 14,
 			"name": "Not counted",
@@ -79,12 +115,18 @@
 			"node_id": 15,
 			"name": "Silver Fern (Black, White and Blue)",
 			"round": 4,
-			"vote_count": 662160
+			"vote_count": 662160,
+			"image": "black_lockwood.png",
+			"image_wide" : 800,
+			"image_high" : 399
 		}, {
 			"node_id": 16,
 			"name": "Silver Fern (Red, White and Blue)",
 			"round": 4,
-			"vote_count": 648295
+			"vote_count": 648295,
+			"image": "red_lockwood.png",
+			"image_wide" : 800,
+			"image_high" : 400
 		}, {
 			"node_id": 17,
 			"name": "Not counted",
