@@ -6,4 +6,4 @@ Each column represents a vote count. Flags are arranged vertically according to 
 
 "Not counted" includes all informal, invalid and non-transferable votes. These have been lumped together for simplicity, but you can check out the [source data](http://www.electionresults.govt.nz/2015_flag_referendum1/results-by-count-report.html) for definitions and a full breakdown.
 
-This diagram was made using the [sankey.js](https://github.com/d3/d3-plugins/tree/master/sankey) plugin for D3, and the awesome tutorials by [@d3noob](https://twitter.com/d3noob).
+This diagram was made using the [sankey.js](https://github.com/d3/d3-sankey) plugin for D3, and the awesome tutorials by [@d3noob](https://twitter.com/d3noob).
